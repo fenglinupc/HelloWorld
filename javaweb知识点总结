@@ -1,0 +1,2 @@
+1：资源字符处理：　java提供了一个native2ascII工具用于将中文字符进行编码处理，native2ascII的用法如下所示：
+                  进入dos窗口  输入  native2ascII  即可将中文字符转换为对应的ascii码
