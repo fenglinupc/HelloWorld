@@ -1,0 +1,24 @@
+1.对象判断：
+  Object param = params.get(i);
+   if (param instanceof Integer) {
+    int value = ((Integer) param).intValue();
+    prepStatement.setInt(i + 1, value);
+   } else if (param instanceof String) {
+    String s = (String) param;
+    prepStatement.setString(i + 1, s);
+   } else if (param instanceof Double) {
+    double d = ((Double) param).doubleValue();
+    prepStatement.setDouble(i + 1, d);
+   } else if (param instanceof Float) {
+    float f = ((Float) param).floatValue();
+    prepStatement.setFloat(i + 1, f);
+   } else if (param instanceof Long) {
+    long l = ((Long) param).longValue();
+    prepStatement.setLong(i + 1, l);
+   } else if (param instanceof Boolean) {
+    boolean b = ((Boolean) param).booleanValue();
+    prepStatement.setBoolean(i + 1, b);
+   } else if (param instanceof Date) {
+    Date d = (Date) param;
+    prepStatement.setDate(i + 1, (Date) param);
+   }
