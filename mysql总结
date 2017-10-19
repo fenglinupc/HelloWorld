@@ -1,0 +1,6 @@
+1.日期处理：从页面的日期组件获取的日期，在java类里为String类型。在数据库层进行日期比较时，如果含有年月日时分秒，而此时只想比较年月日，
+           则可以将获取的日期进行加一天，即可达到结束日期的数据获取  即先用to_date将字符转换为日期形式，再用date_add将日期加一天：
+           <if test="EndDateSearch_S !=null and EndDateSearch_S !=''">
+			AND LO.EXIT_TIME
+			&lt;=date_add(to_date(#{EndDateSearch_S},"yyyy-mm-dd"),INTERVAL 1 day)
+           </if>
