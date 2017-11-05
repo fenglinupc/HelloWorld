@@ -45,5 +45,12 @@ windows：1、下载mysql.zip后解压，看看是不是缺少my.ini文件，如
 
                   mysql> exit;
                   Bye
-             7、再次关闭重启服务操作后，进入数据库即可用  mysql -u root -p 输入密码即可：     
+             7、再次关闭重启服务操作后，进入数据库即可用  mysql -u root -p 输入密码即可：   
+             8、mysql> use RUNOOB     #此时进入数据进行操作时会出现一下情况，需要再次更改密码:set password = password('*****');
+                  ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.
+                  mysql> update mysql.user set authentication_string=password('102384feng') where user='root' ;
+                  ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.
+                  mysql> set password = password('*****');
+                  Query OK, 0 rows affected, 1 warning (0.00 sec)
+              9、此时方可使用
                   
