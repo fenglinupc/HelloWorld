@@ -1,1 +1,49 @@
-Linux 系统进入mysql数据库： mysql -uroot -p   输入密码102384;
+mysql5.7 windows安装手册说明：
+windows：1、下载mysql.zip后解压，看看是不是缺少my.ini文件，如果缺少，无法启动，需要自己配置一个。
+         2、配置好以后，管理员身份进入cmd，然后切到mysql解压目录
+            输入命令：mysqld install进行安装，会显示Service successfully installed.；
+         3、输入命令：net start mysql，如果没有成功，显示一下信息，则表示解压后的mysql文件目录下缺少data数据集，
+                  MySQL 服务正在启动 .
+                  MySQL 服务无法启动。
+                  服务没有报告任何错误。
+         4、初始化获得data集合：mysqld --initialize  回车后没有显示任何消息即为成功。此时再次启动  net start mysql则成功了
+         5、输入命令：mysql -u root -p 
+              E:\mysql oracle client\mysql\mysql-5.7.20-winx64\bin>mysql -u root -p
+              Enter password: **********
+              ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+            此时出现的应该是数据库为空用户，在my.ini下的[mysqld]下的[mysql]添加：skip-grant-tables，
+            重启服务：net stop mysql  ;  net start mysql  ;
+            再次输入：mysql -u root -p   即可跳过密码输入，直接回车进入数据库
+                  # 设置mysql客户端默认字符集
+                  default-character-set=utf8 
+                  [mysqld]
+                  #设置3306端口
+                  port = 3306 
+                  # 设置mysql的安装目录
+                  basedir=E:\mysql oracle client\mysql\mysql-5.7.20-winx64
+                  # 设置mysql数据库的数据的存放目录
+                  datadir=E:\mysql oracle client\mysql\mysql-5.7.20-winx64\data
+                  # 允许最大连接数
+                  max_connections=200
+                  # 服务端使用的字符集默认为8比特编码的latin1字符集
+                  character-set-server=utf8
+                  # 创建新表时将使用的默认存储引擎
+                  default-storage-engine=INNODB 
+                  skip-grant-tables
+           6、更改数据库密码：其中需要注意的是，update更改密码时 mysql5.7版本已经去掉了password字段而改为：authentication_string
+                  mysql> use mysql
+                  Database changed
+                  mysql> update user set password=password("*****") where user="root";        ****星号表示要输入的密码
+                  ERROR 1054 (42S22): Unknown column 'password' in 'field list'
+                  mysql> update user set password="102384feng" where user="root";
+                  ERROR 1054 (42S22): Unknown column 'password' in 'field list'
+                  mysql>  update user set password=password("*******") where user="root";
+                  ERROR 1054 (42S22): Unknown column 'password' in 'field list'
+                  mysql> update mysql.user set authentication_string=password('******') where user='root' ;
+                  Query OK, 1 row affected, 1 warning (0.00 sec)
+                  Rows matched: 1  Changed: 1  Warnings: 1
+
+                  mysql> exit;
+                  Bye
+             7、再次关闭重启服务操作后，进入数据库即可用  mysql -u root -p 输入密码即可：     
+                  
