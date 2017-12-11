@@ -32,7 +32,14 @@
               具体信息可以用命令SHOW GRANTS FOR 'dog'@'localhost'; 查看.
 
         8.删除用户：
-              命令: DROP USER 'username'@'host';
+                删除账户及权限：
+                              drop user 用户名@’%’;
+                              drop user 用户名@'localhost';
+                              命令: DROP USER 'username'@'host';
+                删除用户：
+                        delete  from  mysql.user where  'test' and  host='localhost';
+                        flush privileges;
+                        drop database testDB; //删除数据库
         9.查看用户的授权
               mysql> SHOW GRANTS FOR 'fenglin'@'%';
               +----------------------------------------------------+
