@@ -19,4 +19,32 @@
                 4 rows in set (0.00 sec) 
                 ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_innerjoin.gif)
        2、LEFT JOIN
-              MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。        
+              MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。   
+              mysql> select a.runoob_id, a.runoob_author, b.runoob_count FROM
+                  -> runoob_tbl a LEFT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
+                        +-----------+---------------+--------------+
+                        | runoob_id | runoob_author | runoob_count |
+                        +-----------+---------------+--------------+
+                        |         1 | 菜鸟教程      |           10 |
+                        |         2 | 菜鸟教程      |           10 |
+                        |         3 | RUNOOB.COM    |           20 |
+                        |         4 | RUNOOB.COM    |           20 |
+                        |         5 | FK            |         NULL |
+                        +-----------+---------------+--------------+
+                        5 rows in set (0.00 sec)
+                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_leftjoin.gif)
+        3、RIGHT JOIN
+             MySQL RIGHT JOIN 会读取右边数据表的全部数据，即便左边边表无对应数据。
+             实例:mysql> select a.runoob_id, a.runoob_author, b.runoob_count FROM
+                      -> runoob_tbl a RIGHT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
+                        +-----------+---------------+--------------+
+                        | runoob_id | runoob_author | runoob_count |
+                        +-----------+---------------+--------------+
+                        |         1 | 菜鸟教程      |           10 |
+                        |         2 | 菜鸟教程      |           10 |
+                        |         3 | RUNOOB.COM    |           20 |
+                        |         4 | RUNOOB.COM    |           20 |
+                        |      NULL | NULL          |           22 |
+                        +-----------+---------------+--------------+
+                        5 rows in set (0.00 sec)
+                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_rightjoin.gif)
