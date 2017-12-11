@@ -17,6 +17,6 @@
                 |         4 | RUNOOB.COM    |           20 |
                 +-----------+---------------+--------------+
                 4 rows in set (0.00 sec) 
-                ![Image text](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_innerjoin.gif)
+                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_innerjoin.gif)
        2、LEFT JOIN
               MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。        
