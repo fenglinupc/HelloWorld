@@ -17,7 +17,7 @@
                 |         4 | RUNOOB.COM    |           20 | <br/>
                 +-----------+---------------+--------------+ <br/>
                 4 rows in set (0.00 sec) <br/>
-                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_innerjoin.gif) <br/>
+                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_innerjoin.gif) 
        2、LEFT JOIN   <br/>
               MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。   <br/>
               mysql> select a.runoob_id, a.runoob_author, b.runoob_count FROM   <br/>
@@ -36,7 +36,7 @@
         3、RIGHT JOIN  <br/>
              MySQL RIGHT JOIN 会读取右边数据表的全部数据，即便左边边表无对应数据。 <br/>
              实例:mysql> select a.runoob_id, a.runoob_author, b.runoob_count FROM  <br/>
-                      -> runoob_tbl a RIGHT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;  <br/>
+                      -> runoob_tbl a RIGHT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
                         +-----------+---------------+--------------+  <br/>
                         | runoob_id | runoob_author | runoob_count |  <br/>
                         +-----------+---------------+--------------+  <br/>
@@ -47,4 +47,4 @@
                         |      NULL | NULL          |           22 |  <br/>
                         +-----------+---------------+--------------+  <br/>
                         5 rows in set (0.00 sec)  <br/>
-                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_rightjoin.gif) <br/>
+                ![image img_innerjoin.gif](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/img_rightjoin.gif) 
