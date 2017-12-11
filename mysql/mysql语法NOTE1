@@ -1,0 +1,57 @@
+1、UPDATE替换某个字段中的某个字符
+      当我们需要将字段中的特定字符串批量修改为其他字符串时，可已使用以下操作：
+             UPDATE table_name SET field=REPLACE(field, 'old-string', 'new-string') 
+             [WHERE Clause]
+      例子：mysql> UPDATE runoob_tb1 SET runoob_title = REPLACE(runoob_title, 'PYTHON','Python') where
+                -> runoob_id = 4;
+            Query OK, 1 row affected (0.08 sec)
+            Rows matched: 1  Changed: 1  Warnings: 0
+
+            mysql> select * from runoob_tb1 where runoob_id=4;
+            +-----------+--------------+---------------+-----------------+
+            | runoob_id | runoob_title | runoob_author | submission_date |
+            +-----------+--------------+---------------+-----------------+
+            |         4 | 学习Python   | Sanjay        | 2017-12-11      |
+            +-----------+--------------+---------------+-----------------+
+            1 row in set (0.00 sec)
+2、LIKE匹配：
+    SQL LIKE 子句中使用百分号 %字符来表示任意字符，类似于UNIX或正则表达式中的星号 *。
+    如果没有使用百分号 %, LIKE 子句与等号 = 的效果是一样的。
+      例子：mysql> SELECT * FROM runoob_tb1 WHERE runoob_author LIKE '%COM';
+            +-----------+--------------+---------------+-----------------+
+            | runoob_id | runoob_title | runoob_author | submission_date |
+            +-----------+--------------+---------------+-----------------+
+            |         2 | 学习mysql    | runoob.com    | 2017-12-11      |
+            |         3 | 学习JAVA     | runoob.com    | 2017-12-11      |
+            +-----------+--------------+---------------+-----------------+
+            2 rows in set (0.00 sec)
+3、UNION 操作符： 
+         UNION 用于连接两个以上的 SELECT 语句的结果组合到一个结果集合中。多个 SELECT 语句会删除重复的数据。 
+4、分组统计：
+        1、使用 WITH ROLLUP
+            WITH ROLLUP 可以实现在分组统计数据基础上再进行相同的统计（SUM,AVG,COUNT…）。
+            例如我们将以上的数据表按名字进行分组，再统计每个人登录的次数：
+            例子： mysql> SELECT name, SUM(singin) as singin_count FROM employee_tbl 
+                       -> GROUP BY name WITH ROLLUP;
+                          +--------+--------------+
+                          | name   | singin_count |
+                          +--------+--------------+
+                          | 小丽   |            2 |
+                          | 小明   |            7 |
+                          | 小王   |            7 |
+                          | NULL   |           16 |
+                          +--------+--------------+
+        2、 使用 coalesce 来设置一个可以取代 NUll 的名称，coalesce 语法：
+            select coalesce(a,b,c);
+            参数说明：如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。
+            以下实例中如果名字为空我们使用总数代替：
+            例子：mysql> SELECT coalesce(name, 'total') name, SUM(singin) as singin_count FROM employee_tbl GROUP BY name WITH ROLLUP;
+                        +--------+--------------+
+                        | name   | singin_count |
+                        +--------+--------------+
+                        | 小丽   |            2 |
+                        | 小明   |            7 |
+                        | 小王   |            7 |
+                        | total  |           16 |
+                        +--------+--------------+
+                        4 rows in set, 1 warning (0.00 sec)
