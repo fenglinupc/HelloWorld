@@ -1,0 +1,97 @@
+1、获取服务器元数据
+      以下命令语句可以在 MySQL 的命令提示符使用，也可以在脚本中 使用，如PHP脚本。
+      SELECT VERSION( )	服务器版本信息
+      SELECT DATABASE( )	当前数据库名 (或者返回空)
+      SELECT USER( )	当前用户名
+      SHOW STATUS	服务器状态
+      SHOW VARIABLES	服务器配置变量
+ 2、防止表中出现重复数据
+      在MySQL数据表中设置指定的字段为 PRIMARY KEY（主键） 或者 UNIQUE（唯一） 索引来保证数据的唯一性。
+      INSERT IGNORE INTO与INSERT INTO的区别：
+              就是INSERT IGNORE会忽略数据库中已经存在的数据，如果数据库没有数据，就插入新的数据，如果有数据的话就跳过这条数据。
+              这样就可以保留数据库中已经存在数据，达到在间隙中插入数据的目的。
+              以下实例使用了INSERT IGNORE INTO，执行后不会出错，也不会向数据表中插入重复数据：
+      NSERT IGNORE INTO当插入数据时，在设置了记录的唯一性后，如果插入重复数据，将不返回错误，只以警告形式返回。 
+      而REPLACE INTO into如果存在primary 或 unique相同的记录，则先删除掉。再插入新记录。
+ 3、防止SQL注入，我们需要注意以下几个要点：
+      1.永远不要信任用户的输入。对用户的输入进行校验，可以通过正则表达式，或限制长度；对单引号和 双"-"进行转换等。
+      2.永远不要使用动态拼装sql，可以使用参数化的sql或者直接使用存储过程进行数据查询存取。
+      3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。
+      4.不要把机密信息直接存放，加密或者hash掉密码和敏感的信息。
+      5.应用的异常信息应该给出尽可能少的提示，最好使用自定义的错误信息对原始错误信息进行包装
+      6.sql注入的检测方法一般采取辅助软件或网站平台来检测，软件一般采用sql注入检测工具jsky，网站平台就有亿思网站安全平台检测工具。
+        MDCSOFT SCAN等。采用MDCSOFT-IPS可以有效的防御SQL注入，XSS攻击等。
+4、导入导出数据时：出现
+      mysql> select * from person_tbl
+          -> into outfile 'd:/person.txt';
+      ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+      mysql> show avriables like '%secure%';
+      ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avriables like '%secure%'' at line 1
+      mysql> show VAriables like '%secure%';
+      +--------------------------+-------+
+      | Variable_name            | Value |
+      +--------------------------+-------+
+      | require_secure_transport | OFF   |
+      | secure_auth              | ON    |
+      | secure_file_priv         | NULL  |
+      +--------------------------+-------+
+      secure_file_priv 该值为设置导入导出，为NULl 则表示禁止导入导出数据，需要在my.ini下设置：  
+          #设置导入导出
+          secure_file_priv = "E:/mysql oracle client/mysql/sql_file"
+      mysql> show  variables like '%secure%';
+            +--------------------------+----------------------------------------+
+            | Variable_name            | Value                                  |
+            +--------------------------+----------------------------------------+
+            | require_secure_transport | OFF                                    |
+            | secure_auth              | ON                                     |
+            | secure_file_priv         | E:\mysql oracle client\mysql\sql_file\ |
+            +--------------------------+----------------------------------------+    
+      导出数据    
+      mysql>    select * from runoob_tbl
+             -> into outfile 'E:/mysql oracle client/mysql/sql_file/runoob_tbl.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+             -> LINES TERMINATED BY '\r\n';           #FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n';转换字符 各值用逗号隔开 设置格式 
+            Query OK, 5 rows affected (0.01 sec)
+      SELECT ... INTO OUTFILE 语句有以下属性:
+            LOAD DATA INFILE是SELECT ... INTO OUTFILE的逆操作，SELECT句法。为了将一个数据库的数据写入一个文件，
+            使用SELECT ... INTO OUTFILE，为了将文件读回数据库，使用LOAD DATA INFILE。
+            SELECT...INTO OUTFILE 'file_name'形式的SELECT可以把被选择的行写入一个文件中。
+            该文件被创建到服务器主机上，因此您必须拥有FILE权限，才能使用此语法。
+            输出不能是一个已存在的文件。防止文件数据被篡改。
+            你需要有一个登陆服务器的账号来检索文件。否则 SELECT ... INTO OUTFILE 不会起任何作用。
+            在UNIX中，该文件被创建后是可读的，权限由MySQL服务器所拥有。这意味着，虽然你就可以读取该文件，但可能无法将其删除。
+     导出sql文件：在bin下键入以下命令：
+           E:\mysql oracle client\mysql\mysql-5.7.20-winx64\bin>
+                  mysqldump -u root -p runoob > "E:\mysql oracle client\mysql\sql_file"\runoob.txt
+                  Enter password: **********
+     
+      导入数据：
+            使用 LOAD DATA 导入数据
+            MySQL 中提供了LOAD DATA INFILE语句来插入数据             
+                   mysql> LOAD DATA LOCAL INFILE 'data.txt'
+                         -> INTO TABLE runoob_tbl( runoob_id, runoob_title, runoob_author, submission_date);
+                        Query OK, 5 rows affected (0.10 sec)
+                        Records: 5  Deleted: 0  Skipped: 0  Warnings: 0
+             如果指定LOCAL关键词，则表明从客户主机上按路径读取文件。如果没有指定，则文件在服务器上按路径读取文件。
+             你能明确地在LOAD DATA语句中指出列值的分隔符和行尾标记，但是默认标记是定位符和换行符。
+             两个命令的 FIELDS 和 LINES 子句的语法是一样的。两个子句都是可选的，但是如果两个同时被指定，FIELDS 子句必须出现在 LINES 子句之前。
+             如果用户指定一个 FIELDS 子句，它的子句 （TERMINATED BY、[OPTIONALLY] ENCLOSED BY 和 ESCAPED BY) 也是可选的，
+             不过，用户必须至少指定它们中的一个。
+                  mysql> LOAD DATA LOCAL INFILE 'dump.txt' INTO TABLE mytbl
+                    -> FIELDS TERMINATED BY ':'
+                    -> LINES TERMINATED BY '\r\n';
+      使用 mysqlimport 导入数据
+            mysqlimport客户端提供了LOAD DATA INFILEQL语句的一个命令行接口。mysqlimport的大多数选项直接对应LOAD DATA INFILE子句。
+            从文件 dump.txt 中将数据导入到 mytbl 数据表中, 可以使用以下命令：
+            $ mysqlimport -u root -p --local database_name dump.txt
+            password *****
+      mysqlimport的常用选项介绍
+            选项	功能
+            -d or --delete	新数据导入数据表中之前删除数据数据表中的所有信息
+            -f or --force	不管是否遇到错误，mysqlimport将强制继续插入数据
+            -i or --ignore	mysqlimport跳过或者忽略那些有相同唯一 关键字的行， 导入文件中的数据将被忽略。
+            -l or -lock-tables	数据被插入之前锁住表，这样就防止了， 你在更新数据库时，用户的查询和更新受到影响。
+            -r or -replace	这个选项与－i选项的作用相反；此选项将替代 表中有相同唯一关键字的记录。
+            --fields-enclosed- by= char	指定文本文件中数据的记录时以什么括起的， 很多情况下 数据以双引号括起。 默认的情况下数据是没有被字符括起的。
+            --fields-terminated- by=char	指定各个数据的值之间的分隔符，在句号分隔的文件中， 分隔符是句号。您可以用此选项指定数据之间的分隔符。 默认的分隔符是跳格符（Tab）
+            --lines-terminated- by=str	此选项指定文本文件中行与行之间数据的分隔字符串 或者字符。 默认的情况下mysqlimport以newline为行分隔符。 您可以选择用一个字符串来替代一个单个的字符： 一个新行或者一个回车。
+            mysqlimport命令常用的选项还有-v 显示版本（version）， -p 提示输入密码（password）等。
