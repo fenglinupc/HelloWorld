@@ -5,3 +5,10 @@ HelloWorld/mysql问题处理：
 			AND LO.EXIT_TIME
 			&lt;=date_add(to_date(#{EndDateSearch_S},"yyyy-mm-dd"),INTERVAL 1 day)
            </if>
+2、行锁：
+UPDATE 操作 出行行锁  显示：异常：Lock wait timeout exceeded; try restarting transaction
+	此时：执行操作
+ 	  select * from information_schema.innodb_trx 
+	找到锁表对应的：trx_mysql_thread_id 
+	将该锁对应的线程干掉：kill trx_mysql_thread_id 
+   	 show processlist; 	  
