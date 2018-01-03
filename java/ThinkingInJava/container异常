@@ -1,0 +1,13 @@
+1、在调用Arrays.asList()方法时把一个对象数组转化成List列表时，对得到的List列表进行add()和remove()操作时
+      出现java.lang.UnsupportedOperationException异常。
+      把数组转化为List的操作代码如下：
+          MyList[] lists = {fengList, new MyList("lin"), new MyList("ran")};
+          List<MyList> subMyLists = Arrays.asList(lists);
+  异常分析：java.lang.UnsupportedOperationException是指请求的方法不被支持的异常。
+            在从Arrays.asList()转化过来的List的不支持add()和remove()方法，这是由于从Arrays.asList()返回的是返回java.util.Arrays$ArrayList，
+            而不是ArrayList。Arrays$ArrayList和ArrayList都是继承AbstractList，add() 和remove()等方法
+            在AbstractList中默认throw UnsupportedOperationException而不做任何操作。ArrayList重写这些方法对List进行操作，
+            而Arrays$ArrayList却没有重写add()和 remove()等方法，所以对从Arrays.asList()转化过来的List进行add()和remove()会
+            出现UnsupportedOperationException异常。
+解决方法：    
+        ArrayList<Element> arrayList = new ArrayList<Element>(Arrays.asList(array));
