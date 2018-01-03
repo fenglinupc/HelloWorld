@@ -1,0 +1,6 @@
+1、Iterator 只能单向移动:
+      1) 使用方法 iterater()要求容器返回一个Iterater  。Iterator将准备好返回序列的第一个元素
+      2)使用next()获得序列中的下一个元素
+      3)使用hasNext()检查序列中是否还有元素
+      4)使用remove()将迭代器新近返回的元素删除
+      
