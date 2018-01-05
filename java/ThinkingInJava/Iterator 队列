@@ -1,0 +1,11 @@
+1、Iterator 只能单向移动:
+      1) 使用方法 iterater()要求容器返回一个Iterater  。Iterator将准备好返回序列的第一个元素
+      2)使用next()获得序列中的下一个元素
+      3)使用hasNext()检查序列中是否还有元素
+      4)使用remove()将迭代器新近返回的元素删除
+      
+2、队列 Queue 
+       方法： offer() 在允许的情况下，将元素插入到队尾，或者返回false 
+             peek() 和 element() 都将在不移除的情况下返回队头  但是peek()方法在队列为空时返回null， 而element()会抛出NoSuchWlementException异常
+             poll() 和 remove()方法将移除并返回队头，但是poll()在队列为空时返回null， 而remove()会抛出NoSuchException异常
+      
