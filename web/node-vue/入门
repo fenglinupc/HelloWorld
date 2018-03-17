@@ -1,0 +1,7 @@
+1、新建的vue环境搭建好之后，会有ESlint代码规范，可将其注释掉，否则  npm run dev 会报错： 在build文件夹  webpack.base.conf.js中
+    module: {
+        rules: [
+        /*...(config.dev.useEslint ? [createLintingRule()] : []),
+      		代码规范去掉
+        {*/
+2、如果npm运行不了， 包括 npm -V 都无法执行，则双击安装包，选择repair进行修复。
