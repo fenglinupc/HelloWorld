@@ -1,22 +1,4 @@
 1、当在控制台使用npm命令时，无论是安装还是启动等都报错，出现如下：
-                E:\MTsoftware\mtsoftware\nodejs\workspace\demo-project>npm cache clear
-                module.js:538
-                    throw err;
-                    ^
-                Error: Cannot find module 'E:\MTsoftware\mtsoftware\nodejs\node_modules\npm\bin\npm-cli.js'
-                    at Function.Module._resolveFilename (module.js:536:15)
-                    at Function.Module._load (module.js:466:25)
-                    at Function.Module.runMain (module.js:676:10)
-                    at startup (bootstrap_node.js:187:16)
-                    at bootstrap_node.js:608:3
-                module.js:538
-                    throw err;
-                    ^
-                Error: Cannot find module 'E:\MTsoftware\mtsoftware\nodejs\node_modules\npm\bin\npm-cli.js'
-                    at Function.Module._resolveFilename (module.js:536:15)
-                    at Function.Module._load (module.js:466:25)
-                    at Function.Module.runMain (module.js:676:10)
-                    at startup (bootstrap_node.js:187:16)
-                    at bootstrap_node.js:608:3
+          ![]( https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/npm-erro.jpg）
 则是npm出现了问题，此时找到安装包，双击后选择next，然后选择 repair进行修复即可
         
