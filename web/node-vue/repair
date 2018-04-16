@@ -1,4 +1,4 @@
 1、当在控制台使用npm命令时，无论是安装还是启动等都报错，出现如下：
-          ![]( https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/npm-erro.jpg）
+          ![](https://github.com/fenglinupc/HelloWorld/blob/master/img-folder/npm-erro.jpg）
 则是npm出现了问题，此时找到安装包，双击后选择next，然后选择 repair进行修复即可
         
